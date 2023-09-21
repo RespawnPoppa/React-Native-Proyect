@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
     Box,
     Text,
@@ -13,31 +14,42 @@ import {
     IconButton,
     Icon,
 } from "native-base";
-import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+
+    const emailRegex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
     const handleEmailChange = (text) => {
         setEmail(text);
-        setEmailError(text.length < 15);
+
+        if (!emailRegex.test(text)) {
+            setEmailError("Correo electrónico inválido");
+        } else {
+            setEmailError("");
+        }
     };
 
     const handlePasswordChange = (text) => {
         setPassword(text);
-        setPasswordError(text.length < 3);
+
+        if (text.length < 3) {
+            setPasswordError("La contraseña debe tener al menos 3 caracteres");
+        } else {
+            setPasswordError("");
+        }
     };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const isButtonDisabled = email.length < 15 || password.length < 3;
+    const isButtonDisabled = emailError || email.length === 0 || passwordError || password.length < 3;
 
     return (
         <>
@@ -86,7 +98,7 @@ export default function Login() {
                                 borderColor={emailError ? "red.500" : "coolGray.200"}
                             />
                             {emailError && (
-                                <Text color="red.500">Requiere más de 15 caracteres</Text>
+                                <Text color="red.500">{emailError}</Text>
                             )}
                         </FormControl>
                         <FormControl>
@@ -112,14 +124,18 @@ export default function Login() {
                                 }
                             />
                             {passwordError && (
-                                <Text color="red.500">Requiere más de 3 caracteres</Text>
+                                <Text color="red.500">{passwordError}</Text>
                             )}
-                            <Link _text={{
-                                fontSize: "xs",
-                                fontWeight: "500",
-                                color: "#38bdf8"
-                            }} alignSelf="flex-end" mt="1">
-                               ¿Olvido su contrasñea?
+                            <Link
+                                _text={{
+                                    fontSize: "xs",
+                                    fontWeight: "500",
+                                    color: "#38bdf8",
+                                }}
+                                alignSelf="flex-end"
+                                mt="1"
+                            >
+                                ¿Olvidó su contraseña?
                             </Link>
                         </FormControl>
                         <Button

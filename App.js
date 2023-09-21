@@ -1,5 +1,5 @@
 import React from "react";
-import {NativeBaseProvider, Text,Box, Input} from "native-base";
+import { NativeBaseProvider} from "native-base";
 import Login from "./components/Login"
 import CustomInput from "./components/CustomInput.js";
 import SingUp from "./components/SingUp.js"
@@ -8,18 +8,18 @@ import ForgotPassword from "./components/ForgotPassword";
 
 export default function App() {
 
-  return(
-      <NativeBaseProvider>
-        <Login></Login>
+  return (
+    <NativeBaseProvider>
+      <Login></Login>
 
-        {/* <SingUp></SingUp> */}
+      {/* <SingUp></SingUp> */}
 
-        {/* <ResetPassword></ResetPassword> */}
+      {/* <ResetPassword></ResetPassword> */}
 
-        {/* <ForgotPassword></ForgotPassword> */}
-        
-      </NativeBaseProvider>
-   );
+      {/* <ForgotPassword></ForgotPassword> */}
+
+    </NativeBaseProvider>
+  );
 };
 
 
